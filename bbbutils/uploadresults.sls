@@ -15,20 +15,17 @@ create_tar_archive:
 
 push_copy_to_master:
   module.run:
-    - name: cp.push_dir
-    - arg:
-      - {{ output_dir }}
+    - name: cp.push
+    - path: /tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
 
 
 put_copy_in_s3:
-  modile.run:
+  module.run:
     - name: s3.put
-    - tgt: '[gc,aw,az,do]*'
-    - arg:
-      - {{ bucketname }}
-      - {{ testbranch }}/{{ platformgrain }}/{{ zipname }}.tar.gz
-      - local_file=/tmp/{{ zipname }}.tar.gz
+    - bucket: {{ bucketname }}
+    - path: {{ testbranch }}/{{ platformgrain }}/{{ zipname }}.tar.gz
+    - local_file: /tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
