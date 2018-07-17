@@ -7,13 +7,10 @@
 create_tar_archive:
   module.run:
     - name: archive.tar
-    - args:
-      - czf
-      - /tmp/{{ zipname }}.tar.gz
-      - {{ output_dir }}/*
-    - kwargs:
-      - cwd: /tmp
-
+    - options: czf
+    - dest: /tmp/{{ zipname }}.tar.gz
+    - sources:  {{ output_dir }}/*
+    - cwd: /tmp
 
 push_copy_to_master:
   module.run:
