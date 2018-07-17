@@ -8,7 +8,8 @@ create_tar_archive:
   module.run:
     - name: archive.tar
     - options: czf
-    - dest: /tmp/{{ zipname }}.tar.gz
+    - dest: /tmp
+    - tarfile: {{ zipname }}.tar.gz
     - sources:  {{ output_dir }}/*
     - cwd: /tmp
 
