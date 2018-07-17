@@ -1,6 +1,8 @@
 {% set output_dir = pillar.get('output_dir','/tmp/outputdata') %}
 {% set zipname = grains.get('id', 'no_id_set') %}
 {% set bucketname = pillar.get('bucketname','com.bigbitbus.data.ingest') %}
+{% set testbranch = grains.get('testgitref','not-defined') %}
+
 create_tar_archive:
   module.run:
     - name: archive.tar
