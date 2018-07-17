@@ -2,6 +2,7 @@
 {% set zipname = grains.get('id', 'no_id_set') %}
 {% set bucketname = pillar.get('bucketname','com.bigbitbus.data.ingest') %}
 {% set testbranch = grains.get('testgitref','not-defined') %}
+{% set platformgrain = grains.get('platformgrain','not-defined') %}
 
 create_tar_archive:
   module.run:
@@ -29,7 +30,7 @@ put_copy_in_s3:
     - tgt: '[gc,aw,az,do]*'
     - arg:
       - {{ bucketname }}
-      - {{ testbranch }}/{{ provider_id }}/{{ zipname }}.tar.gz
+      - {{ testbranch }}/{{ platformgrain }}/{{ zipname }}.tar.gz
       - local_file=/tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
