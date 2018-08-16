@@ -25,7 +25,7 @@ put_copy_in_s3:
   module.run:
     - name: s3.put
     - bucket: {{ bucketname }}
-    - path: {{ testbranch }}/{{ platformgrain }}/{{ zipname }}.tar.gz
+    - path: {{ testbranch }}/{{ platformgrain }}/{{ zipname }}-{{ None|strftime("%m_%d_%Y_%H_%M_%S") }}.tar.gz
     - local_file: /tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
