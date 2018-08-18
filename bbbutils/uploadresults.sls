@@ -14,12 +14,21 @@ create_tar_archive:
       - {{ output_dir }}/*
     - cwd: /tmp
 
+sleep_a_few_seconds:
+  module.run:
+    - name: cmd.run
+    - cmd: sleep 2
+    - require:
+      - create_tar_archive
+
+
 push_copy_to_master:
   module.run:
     - name: cp.push
     - path: /tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
+      - sleep_a_few_seconds
 
 
 put_copy_in_s3:
@@ -30,4 +39,5 @@ put_copy_in_s3:
     - local_file: /tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
+      - sleep_a_few_seconds
 
