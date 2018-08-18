@@ -30,3 +30,4 @@ put_copy_in_s3:
     - local_file: /tmp/{{ zipname }}.tar.gz
     - require:
       - create_tar_archive
+
