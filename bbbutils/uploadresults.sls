@@ -10,7 +10,8 @@ create_tar_archive:
     - options: czf
     - dest: /tmp
     - tarfile: {{ zipname }}.tar.gz
-    - sources:  {{ output_dir }}/*
+    - sources:
+      - {{ output_dir }}/*
     - cwd: /tmp
 
 push_copy_to_master:
